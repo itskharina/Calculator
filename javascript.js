@@ -3,7 +3,7 @@ let history = document.querySelector(".history");
 let numAndOp = document.querySelector(".calculator");
 
 let operator = "";
-let displayValue = "0";
+let displayValue = "";
 let firstNumber = "";
 let needNewNumber = false;
 
@@ -24,12 +24,21 @@ function divide(a, b) {
 }
 
 function updateDisplay() {
-  input.value = displayValue;
+  input.value = String(Number(displayValue))
   if (operator === "=" || displayValue === "0") {
     history.textContent = ""
-  } else if (operator) {
-    history.textContent = firstNumber + " " + operator
+  } else if (operator && !needNewNumber) {
+    history.textContent = parseFloat(firstNumber) + " " + operator
   }
+  
+  if (displayValue.includes('.')) {
+    input.value = displayValue.replace(/[^0-9.]+/g, '');
+  }
+}
+updateDisplay()
+
+function deletePreviousNum() {
+  displayValue = displayValue.substring(0, displayValue.length-1)
 }
 
 function calculate(operator, a, b) {
@@ -51,11 +60,19 @@ function calculate(operator, a, b) {
 }
 
 function inputNum(num) {
-  if (needNewNumber || displayValue === "0") {
+  if (needNewNumber) {
     displayValue = num;
     needNewNumber = false;
+  } else if (!needNewNumber && displayValue == '0' && num == '0') {
+    displayValue = '0'
   } else {
-    displayValue += num;
+    displayValue += num
+  }
+}
+
+function inputDecimal(dot) {
+  if (!displayValue.includes(dot)) {
+    displayValue += dot;
   }
 }
 
@@ -71,9 +88,8 @@ function inputOperator(op) {
         firstNumber = inputNumber;
     } else if (operator) {
         let total = calculate(operator, firstNumber, inputNumber);
-        console.log(total);
-        displayValue = String(total);
-        firstNumber = total;
+        displayValue = parseFloat(total.toFixed(5));
+        firstNumber = displayValue;
     }
     needNewNumber = true;
     operator = op;
@@ -81,10 +97,16 @@ function inputOperator(op) {
 
 function resetCalculator() {
   operator = "";
-  displayValue = "0";
+  displayValue = "";
   firstNumber = "";
   needNewNumber = false;
   history.textContent = "";
+}
+
+function percentage() {
+  let percent = displayValue / 100;
+  console.log(percent)
+  displayValue = percent
 }
 
 numAndOp.addEventListener("click", (e) => {
@@ -95,8 +117,8 @@ numAndOp.addEventListener("click", (e) => {
   }
 
   if (e.target.classList.contains("decimal")) {
-    inputNum(e.target.value);
-    updateDisplay();
+    inputDecimal(e.target.value);
+    updateDisplay()
     return;
   }
 
@@ -116,5 +138,15 @@ numAndOp.addEventListener("click", (e) => {
     resetCalculator();
     updateDisplay();
     return;
+  }
+
+  if (e.target.classList.contains("backspace")) {
+    deletePreviousNum()
+    updateDisplay()
+  }
+
+  if (e.target.classList.contains("percent")) {
+    percentage()
+    updateDisplay()
   }
 });
