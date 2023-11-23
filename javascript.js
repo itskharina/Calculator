@@ -32,12 +32,14 @@ function updateDisplay() {
     history.textContent = parseFloat(firstNumber) + " " + operator;
   }
 
-  if (displayValue.includes(".")) {
-    input.value = displayValue.replace(/[^0-9.]+/g, "");
-    decimalBtn.disabled = true;
-  } else {
-    decimalBtn.disabled = false;
-  }
+  document.addEventListener("DOMContentLoaded", (e) => {
+    if (displayValue.includes(".")) {
+      input.value = displayValue.replace(/[^0-9.]+/g, "");
+      decimalBtn.disabled = true;
+    } else {
+      decimalBtn.disabled = false;
+    }
+  })
 }
 updateDisplay();
 
