@@ -1,7 +1,11 @@
 let input = document.querySelector(".input");
 let history = document.querySelector(".history");
 let numAndOp = document.querySelector(".calculator");
-let decimalBtn = document.querySelector(".decimal");
+let decimalBtn = document.querySelector(".decimal")
+
+document.addEventListener("DOMContentLoaded", function(event) {
+  decimalBtn.disabled = false;
+});
 
 let operator = "";
 let displayValue = "";
@@ -32,14 +36,12 @@ function updateDisplay() {
     history.textContent = parseFloat(firstNumber) + " " + operator;
   }
 
-  document.addEventListener("DOMContentLoaded", (e) => {
     if (displayValue.includes(".")) {
       input.value = displayValue.replace(/[^0-9.]+/g, "");
       decimalBtn.disabled = true;
     } else {
       decimalBtn.disabled = false;
     }
-  })
 }
 updateDisplay();
 
