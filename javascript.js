@@ -1,7 +1,7 @@
 let input = document.querySelector(".input");
 let history = document.querySelector(".history");
 let numAndOp = document.querySelector(".calculator");
-let decimalBtn = document.querySelector('.decimal');
+let decimalBtn = document.querySelector(".decimal");
 
 let operator = "";
 let displayValue = "";
@@ -25,41 +25,40 @@ function divide(a, b) {
 }
 
 function updateDisplay() {
-  input.value = String(Number(displayValue))
+  input.value = String(Number(displayValue));
   if (operator === "=" || displayValue === "0") {
-    history.textContent = ""
+    history.textContent = "";
   } else if (operator && !needNewNumber) {
-    history.textContent = parseFloat(firstNumber) + " " + operator
+    history.textContent = parseFloat(firstNumber) + " " + operator;
   }
-  
-  if (displayValue.includes('.')) {
-    input.value = displayValue.replace(/[^0-9.]+/g, '');
-    decimalBtn.disabled = true
+
+  if (displayValue.includes(".")) {
+    input.value = displayValue.replace(/[^0-9.]+/g, "");
+    decimalBtn.disabled = true;
   } else {
-    decimalBtn.disabled = false
+    decimalBtn.disabled = false;
   }
 }
-updateDisplay()
-
+updateDisplay();
 
 function deletePreviousNum() {
-  displayValue = displayValue.substring(0, displayValue.length-1)
+  displayValue = displayValue.substring(0, displayValue.length - 1);
 }
 
 function calculate(operator, a, b) {
   switch (operator) {
     case "+":
-        return add(a, b);
-        break;
+      return add(a, b);
+      break;
     case "-":
-        return subtract(a, b);
-        break;
+      return subtract(a, b);
+      break;
     case "÷":
-        return divide(a, b);
-        break;
+      return divide(a, b);
+      break;
     case "*":
-        return multiply(a, b);
-        break;
+      return multiply(a, b);
+      break;
   }
   return b;
 }
@@ -68,10 +67,10 @@ function inputNum(num) {
   if (needNewNumber) {
     displayValue = num;
     needNewNumber = false;
-  } else if (!needNewNumber && displayValue == '0' && num == '0') {
-    displayValue = '0'
+  } else if (!needNewNumber && displayValue == "0" && num == "0") {
+    displayValue = "0";
   } else {
-    displayValue += num
+    displayValue += num;
   }
 }
 
@@ -82,22 +81,22 @@ function inputDecimal(dot) {
 }
 
 function inputOperator(op) {
-    let inputNumber = parseFloat(displayValue);
-    
-    if (operator && needNewNumber) {
+  let inputNumber = parseFloat(displayValue);
+
+  if (operator && needNewNumber) {
     operator = op;
     return;
   }
 
-    if (!firstNumber && !isNaN(inputNumber)) {
-        firstNumber = inputNumber;
-    } else if (operator) {
-        let total = calculate(operator, firstNumber, inputNumber);
-        displayValue = parseFloat(total.toFixed(5));
-        firstNumber = displayValue;
-    }
-    needNewNumber = true;
-    operator = op;
+  if (!firstNumber && !isNaN(inputNumber)) {
+    firstNumber = inputNumber;
+  } else if (operator) {
+    let total = calculate(operator, firstNumber, inputNumber);
+    displayValue = parseFloat(total.toFixed(5));
+    firstNumber = displayValue;
+  }
+  needNewNumber = true;
+  operator = op;
 }
 
 function resetCalculator() {
@@ -110,8 +109,8 @@ function resetCalculator() {
 
 function percentage() {
   let percent = displayValue / 100;
-  console.log(percent)
-  displayValue = percent
+  console.log(percent);
+  displayValue = percent;
 }
 
 numAndOp.addEventListener("click", (e) => {
@@ -123,7 +122,7 @@ numAndOp.addEventListener("click", (e) => {
 
   if (e.target.classList.contains("decimal")) {
     inputDecimal(e.target.value);
-    updateDisplay()
+    updateDisplay();
     return;
   }
 
@@ -146,12 +145,14 @@ numAndOp.addEventListener("click", (e) => {
   }
 
   if (e.target.classList.contains("backspace")) {
-    deletePreviousNum()
-    updateDisplay()
+    deletePreviousNum();
+    updateDisplay();
+    return;
   }
 
   if (e.target.classList.contains("percent")) {
-    percentage()
-    updateDisplay()
+    percentage();
+    updateDisplay();
+    return;
   }
 });
