@@ -1,6 +1,7 @@
 let input = document.querySelector(".input");
 let history = document.querySelector(".history");
 let numAndOp = document.querySelector(".calculator");
+let decimalBtn = document.querySelector('.decimal');
 
 let operator = "";
 let displayValue = "";
@@ -33,9 +34,13 @@ function updateDisplay() {
   
   if (displayValue.includes('.')) {
     input.value = displayValue.replace(/[^0-9.]+/g, '');
+    decimalBtn.disabled = true
+  } else {
+    decimalBtn.disabled = false
   }
 }
 updateDisplay()
+
 
 function deletePreviousNum() {
   displayValue = displayValue.substring(0, displayValue.length-1)
