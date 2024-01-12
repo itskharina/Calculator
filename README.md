@@ -1,4 +1,32 @@
-Created a calculator website as part of The Odin Project using CSS, HTML and JavaScript.
-Users can do basic operations, as well as delete an input (backspace) or clear the screen.
+## Table of contents
 
-Live demo: https://itskharina.github.io/Calculator/
+- [Overview](#overview)
+  - [The challenge](#the-challenge)
+  - [Screenshots](#screenshots)
+- [My process](#my-process)
+  - [Built with](#built-with)
+
+## Overview
+
+### The challenge
+
+- Created a calculator as part of [The Odin Project](https://www.theodinproject.com)
+- Live demo: https://itskharina.github.io/Calculator/
+
+Users should be able to:
+
+- Do basic operations (add, subtract, multiply, divide)
+- Delete an input (backspace) as well as clear the screen
+- Calculate percentages
+
+### Screenshots
+
+![](./desktop.png)
+
+## My process
+
+### Built with
+
+- Semantic HTML5 markup
+- CSS (Grid and Flexbox)
+- JavaScript
