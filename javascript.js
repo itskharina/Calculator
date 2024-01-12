@@ -1,15 +1,15 @@
-let input = document.querySelector(".input");
-let history = document.querySelector(".history");
-let numAndOp = document.querySelector(".calculator");
-let decimalBtn = document.querySelector(".decimal")
+let input = document.querySelector('.input');
+let history = document.querySelector('.history');
+let numAndOp = document.querySelector('.calculator');
+let decimalBtn = document.querySelector('.decimal');
 
-document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener('DOMContentLoaded', function (event) {
   decimalBtn.disabled = false;
 });
 
-let operator = "";
-let displayValue = "";
-let firstNumber = "";
+let operator = '';
+let displayValue = '';
+let firstNumber = '';
 let needNewNumber = false;
 
 function add(a, b) {
@@ -30,18 +30,18 @@ function divide(a, b) {
 
 function updateDisplay() {
   input.value = String(Number(displayValue));
-  if (operator === "=" || displayValue === "0") {
-    history.textContent = "";
+  if (operator === '=' || displayValue === '0') {
+    history.textContent = '';
   } else if (operator && !needNewNumber) {
-    history.textContent = parseFloat(firstNumber) + " " + operator;
+    history.textContent = parseFloat(firstNumber) + ' ' + operator;
   }
 
-    if (displayValue.includes(".")) {
-      input.value = displayValue.replace(/[^0-9.]+/g, "");
-      decimalBtn.disabled = true;
-    } else {
-      decimalBtn.disabled = false;
-    }
+  if (displayValue.includes('.')) {
+    input.value = displayValue.replace(/[^0-9.]+/g, '');
+    decimalBtn.disabled = true;
+  } else {
+    decimalBtn.disabled = false;
+  }
 }
 updateDisplay();
 
@@ -51,16 +51,16 @@ function deletePreviousNum() {
 
 function calculate(operator, a, b) {
   switch (operator) {
-    case "+":
+    case '+':
       return add(a, b);
       break;
-    case "-":
+    case '-':
       return subtract(a, b);
       break;
-    case "÷":
+    case '÷':
       return divide(a, b);
       break;
-    case "*":
+    case '*':
       return multiply(a, b);
       break;
   }
@@ -71,8 +71,8 @@ function inputNum(num) {
   if (needNewNumber) {
     displayValue = num;
     needNewNumber = false;
-  } else if (!needNewNumber && displayValue == "0" && num == "0") {
-    displayValue = "0";
+  } else if (!needNewNumber && displayValue == '0' && num == '0') {
+    displayValue = '0';
   } else {
     displayValue += num;
   }
@@ -104,57 +104,56 @@ function inputOperator(op) {
 }
 
 function resetCalculator() {
-  operator = "";
-  displayValue = "";
-  firstNumber = "";
+  operator = '';
+  displayValue = '';
+  firstNumber = '';
   needNewNumber = false;
-  history.textContent = "";
+  history.textContent = '';
 }
 
 function percentage() {
   let percent = displayValue / 100;
-  console.log(percent);
   displayValue = percent;
 }
 
-numAndOp.addEventListener("click", (e) => {
-  if (e.target.classList.contains("number")) {
+numAndOp.addEventListener('click', (e) => {
+  if (e.target.classList.contains('number')) {
     inputNum(e.target.value);
     updateDisplay();
     return;
   }
 
-  if (e.target.classList.contains("decimal")) {
+  if (e.target.classList.contains('decimal')) {
     inputDecimal(e.target.value);
     updateDisplay();
     return;
   }
 
-  if (e.target.classList.contains("operator")) {
+  if (e.target.classList.contains('operator')) {
     inputOperator(e.target.value);
     updateDisplay();
     return;
   }
 
-  if (e.target.classList.contains("equal")) {
+  if (e.target.classList.contains('equal')) {
     inputOperator(e.target.value);
     updateDisplay();
     return;
   }
 
-  if (e.target.classList.contains("clear")) {
+  if (e.target.classList.contains('clear')) {
     resetCalculator();
     updateDisplay();
     return;
   }
 
-  if (e.target.classList.contains("backspace")) {
+  if (e.target.classList.contains('backspace')) {
     deletePreviousNum();
     updateDisplay();
     return;
   }
 
-  if (e.target.classList.contains("percent")) {
+  if (e.target.classList.contains('percent')) {
     percentage();
     updateDisplay();
     return;
